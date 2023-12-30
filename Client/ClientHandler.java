@@ -15,18 +15,16 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if(msg instanceof String) {
-            ByteBuf byteBuf = null;
-            try {
-                byteBuf = Unpooled.copiedBuffer(((String) msg).getBytes());
-                byte[] data = new byte[byteBuf.readableBytes()];
-                byteBuf.readBytes(data);
-                System.out.println(new String(data));
-            }finally {
-                byteBuf.release();
-            }
-
+        ByteBuf byteBuf = null;
+        try {
+            byteBuf = Unpooled.copiedBuffer(((String) msg).getBytes());
+            byte[] data = new byte[byteBuf.readableBytes()];
+            byteBuf.readBytes(data);
+            System.out.println(new String(data));
+        }finally {
+            byteBuf.release();
         }
+
     }
 
     @Override
